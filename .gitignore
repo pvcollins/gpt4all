@@ -1,0 +1,7 @@
+# created by virtualenv automatically
+/models
+/Lib
+/Scripts
+/.dist
+/.idea
+/docs
