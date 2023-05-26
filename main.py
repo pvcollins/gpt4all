@@ -1,6 +1,3 @@
-# The push to Git should use the email address below:
-# xxxxxxxxxx@users.noreply.github.com
-
 # This is a sample Python script. and git test
 
 # Press Shift+F10 to execute it or replace it with your code.
