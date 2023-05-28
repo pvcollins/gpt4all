@@ -22,8 +22,8 @@ import os  # for interaction with the files
 import datetime
 
 # assign the path for the 2 models GPT4All and Alpaca for the embeddings
-gpt4all_path = './models/gpt4all-converted.bin'
-llama_path = './models/ggml-model-q4_0.bin'
+gpt4all_path = '.\models\gpt4all-converted.bin'
+llama_path = 'C:\\Dropbox\\IT_Stuff\\Python3.11\\gpt4all\\models\\ggml-model-q4_0.bin'
 # Callback manager for handling the calls with  the model
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 

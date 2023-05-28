@@ -12,10 +12,8 @@ local_path = './models/gpt4all-converted.bin'
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
 template = """Question: {question}
+Answer: Let's think step by step on it."""
 
-Answer: Let's think step by step on it.
-
-"""
 prompt = PromptTemplate(template=template, input_variables=["question"])
 # initialize the GPT4All instance
 llm = GPT4All(model=local_path, callback_manager=callback_manager, verbose=True)
