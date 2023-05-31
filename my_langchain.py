@@ -8,7 +8,15 @@ from langchain.llms import GPT4All
 from langchain.callbacks.base import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 
-local_path = './models/gpt4all-converted.bin'
+import json
+
+with open('config.json') as config_file:
+    config = json.load(config_file)
+
+model_path = config['model_path']
+model = config['model_other']
+
+local_path = model_path + "\\" + model  # './models/gpt4all-converted.bin'
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 
 template = """Question: {question}

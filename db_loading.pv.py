@@ -22,10 +22,19 @@ import os  # for interaction with the files
 import datetime
 
 # TEST FOR SIMILARITY SEARCH
+import json
+
+with open('config.json') as config_file:
+    config = json.load(config_file)
+
+model_path = config['model_path']
+model_name = config['model_name']
+model = config['model_other']
 
 # assign the path for the 2 models GPT4All and Alpaca for the embeddings
-gpt4all_path = './models/gpt4all-converted.bin'
-llama_path = './models/ggml-model-q4_0.bin'
+gpt4all_path = model_path + "\\" + model  # "'.\models\gpt4all-converted.bin'
+llama_path = model_path + "\\" + model_name  # 'C:\\Dropbox\\IT_Stuff\\Python3.11\\gpt4all\\models\\ggml-model-q4_0.bin'
+
 # Callback manager for handling the calls with  the model
 callback_manager = CallbackManager([StreamingStdOutCallbackHandler()])
 

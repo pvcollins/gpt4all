@@ -27,27 +27,24 @@ https://artificialcorner.com/gpt4all-is-the-local-chatgpt-for-your-documents-and
 # Version 3 instead of pygpt4all
 # pip install gpt4all
 
-# ------------------- VERSION 3 --- THIS WORKS ------------------
-import gpt4all
-model_path = '.\models'
-model = gpt4all.GPT4All(model_name='gpt4all-converted.bin', model_path=model_path, model_type='llama', allow_download=True)
-model.generate("Once upon a time, ", streaming=True)
+# ------------------- THIS WORKS IN DEBUG MODE ONLY!!! ------------------
 
-# ------------------- VERSION 1 MODIFIED ------------------
-from pygpt4all.models.gpt4all import GPT4All
+from gpt4all import GPT4All
+import json
 
+with open('config.json') as config_file:
+    config = json.load(config_file)
 
-def new_text_callback(text):
-    print(text, end="")
+model_path = config['model_path']
+model = config['model_name']
 
+model = GPT4All(model_name=model, model_path=model_path, allow_download=True)
+model.generate("Name 3 colors, ", streaming=True)
 
-model = GPT4All('.\models\gpt4all-converted.bin')  # BREAKS HERE NO _ctx
-model.cpp_generate("Once upon a time, ", n_predict=55, new_text_callback=new_text_callback)
+ans = model.generate("Name 3 colors, ", streaming=False)
+print(f'The answer is: {ans}')
 
-# ------------------- ORIGINAL CODE -----------------------
-from pygpt4all.models.gpt4all import GPT4All
-def new_text_callback(text):
-    print(text, end="")
-model = GPT4All('C:\\Dropbox\\IT_Stuff\\Python3.11\\gpt4all\\models\\gpt4all-converted.bin', n_parts=-1)
-model = GPT4All('./models/gpt4all-converted.bin')
-model.generate("Once upon a time, ", n_predict=55, new_text_callback=new_text_callback)
+messages = [{"role": "user", "content": "Name 3 colors"}]
+model.chat_completion(messages)
+
+print("Fin")
