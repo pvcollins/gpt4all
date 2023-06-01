@@ -1,0 +1,8 @@
+{
+    "model_path" : ".\\models",
+    "model_name" : "ggml-gpt4all-j-v1.3-groovy.bin",
+	"model_other" : "gpt4all-converted.bin",
+	"embedding_model_name" : "all-MiniLM-L6-v2",
+	"embedding_model_other" : "ggml-model-q4_0.bin",
+	"model_type": "GPT4All"
+}
