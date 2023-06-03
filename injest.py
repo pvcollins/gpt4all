@@ -11,6 +11,7 @@ from langchain.document_loaders import (
     EverNoteLoader,
     PDFMinerLoader,
     TextLoader,
+    Docx2txtLoader,
     UnstructuredEmailLoader,
     UnstructuredEPubLoader,
     UnstructuredHTMLLoader,
@@ -64,9 +65,9 @@ class MyElmLoader(UnstructuredEmailLoader):
 # Map file extensions to document loaders and their arguments
 LOADER_MAPPING = {
     ".csv": (CSVLoader, {}),
-    # ".docx": (Docx2txtLoader, {}),
     ".doc": (UnstructuredWordDocumentLoader, {}),
-    ".docx": (UnstructuredWordDocumentLoader, {}),
+#    ".docx": (Docx2txtLoader, {}),
+    ".docx": (UnstructuredWordDocumentLoader, {}), # Needs libreoffice
     ".enex": (EverNoteLoader, {}),
     ".eml": (MyElmLoader, {}),
     ".epub": (UnstructuredEPubLoader, {}),
