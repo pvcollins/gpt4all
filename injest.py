@@ -67,7 +67,7 @@ LOADER_MAPPING = {
     ".csv": (CSVLoader, {}),
     ".doc": (UnstructuredWordDocumentLoader, {}),
 #    ".docx": (Docx2txtLoader, {}),
-    ".docx": (UnstructuredWordDocumentLoader, {}), # Needs libreoffice
+    ".docx": (UnstructuredWordDocumentLoader, {}),  # Needs libreoffice
     ".enex": (EverNoteLoader, {}),
     ".eml": (MyElmLoader, {}),
     ".epub": (UnstructuredEPubLoader, {}),
