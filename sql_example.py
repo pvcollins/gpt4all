@@ -69,7 +69,7 @@ PROMPT = PromptTemplate(
 db_chain = SQLDatabaseChain.from_llm(llm, db, prompt=PROMPT, verbose=True)
 # END --------------------------------------------------------------------
 
-db_chain.run("How many instruments are there in the instrument table?")
+db_chain.run("How many instruments are there in the foobar table?")
 
 db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, use_query_checker=True)
 db_chain.run("How many assetclass=equity are there?")
