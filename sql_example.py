@@ -1,7 +1,16 @@
+# --------------------------------------------------------------------------------------------------------------
+# Example connection to SQL database from langchain
+# NOTE: 1) That this only works for one Schema at a time
+#       2) The sqlalchemy/engine/base.py (version 2.0.15) was modified in row ~1970 to fix the passing parameters
+#
+# P Collins (copied and modified from internet example)  10th June 2023
+# --------------------------------------------------------------------------------------------------------------
+
 from langchain import OpenAI, SQLDatabase, SQLDatabaseChain
 from langchain.prompts.prompt import PromptTemplate
 
-from sqlalchemy.engine import URL
+from sqlalchemy.sql.elements import quoted_name
+
 #from langchain.agents import create_sql_agent
 #from langchain.agents.agent_toolkits import SQLDatabaseToolkit
 #from langchain.agents import AgentExecutor
@@ -22,7 +31,7 @@ with open(gblConfig) as config_file:
     config = json.load(config_file)
 
 # set up API key
-os.environ['OPENAI_API_KEY']  = config['rdwl_openAI_key']
+os.environ['OPENAI_API_KEY'] = config['rdwl_openAI_key']
 
 # TEST ----------------------------------------------------------------------
 # engine = create_engine(url='mssql+pyodbc://PVC-LAPTOP/PortfolioDb?driver=SQL Server', connect_args={'timeout': 60})
@@ -33,11 +42,12 @@ os.environ['OPENAI_API_KEY']  = config['rdwl_openAI_key']
 
 # db = SQLDatabase.from_uri('mssql+pymssql://PVC-LAPTOP/PortfolioDb')
 db = SQLDatabase.from_uri('mssql+pyodbc://PVC-LAPTOP/PortfolioDb?driver=SQL+Server',
-                          include_tables=['Instrument', 'AssetClassMap', 'Trade'],
-                          schema=None,  # s/b quoted_name 'dbo',
-                          sample_rows_in_table_info=5,
-                          max_string_length=500,
-                          view_support=False,
+                          include_tables=['Instrument', 'AssetClassMap', 'Position'],  # Subset of the Tables/Views
+#                          schema=None,  # s/b quoted_name 'dbo',
+                          schema=quoted_name("dbo", True),  # ONLY one Schema at a time!!
+                          sample_rows_in_table_info=3,
+                          max_string_length=4096,
+                          view_support=False,  # Include Views as well as Table
                           indexes_in_table_info=False,
                           engine_args={'connect_args': {'timeout': 60, 'use_setinputsizes': False}})
 
@@ -57,19 +67,21 @@ Only use the following tables:
 
 If someone asks for the table foobar, they really mean the instrument table.
 
+If someone asks for the aum of a fund it is calculated by the sum of each of the gbpvalue's in the position table for a given portfolioticker.
+
 Question: {input}"""
 
 # TOP --------------------------------------------------------------------
 # A)
-db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True)
+#db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True)
+#db_chain.run("How many instruments are there in the foobar table?")
+
 # or, B)
 PROMPT = PromptTemplate(
     input_variables=["input", "table_info", "dialect"], template=_DEFAULT_TEMPLATE
 )
 db_chain = SQLDatabaseChain.from_llm(llm, db, prompt=PROMPT, verbose=True)
-# END --------------------------------------------------------------------
-
-db_chain.run("How many instruments are there in the foobar table?")
-
-db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, use_query_checker=True)
-db_chain.run("How many assetclass=equity are there?")
+# db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, use_query_checker=True)
+# db_chain.run("What is the sum of the gbpvalue's grouped by portfolioticker in the position table?")  # OK BUT WRONG
+# db_chain.run("What is the total aum for each portfolioticker calculated by the sum of each of the gbpvalue's in the position table?")  # GOOD
+db_chain.run("What is the aum for each fund?")

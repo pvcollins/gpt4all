@@ -1,4 +1,4 @@
-# Import of langchain Prompt Template and Chain
+# Import of langchain Prompt Template and Chain.
 from langchain import PromptTemplate, LLMChain
 
 # Import llm to be able to interact with GPT4All directly from langchain

@@ -1,11 +1,18 @@
-# created by virtualenv automatically
-/models
-/Lib
-/Scripts
-/.dist
-/.idea
-/docs_doc
-/docs_pdf
-/docs_ppt
-/docs_redwheel
-/db
+# created by virtualenv automatically and then by me
+/.dist/
+/.idea/
+/__pycache__/
+/db/
+/directory_on_my_computer/*.*
+/docs_doc/
+/docs_pdf/
+/docs_ppt/
+/docs_redwheel/
+/include/
+/Lib/
+/models/*.*
+/Scripts/
+# *.bin
+*.h5
+/directory_on_my_computer
+directory_on_my_computer/tf_model.h5
