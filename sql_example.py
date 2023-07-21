@@ -65,9 +65,12 @@ Only use the following tables:
 
 {table_info}
 
+If you are unable to provide an answer, please reply as "I'm sorry, but I don't have that information at the moment.".
+
 If someone asks for the table foobar, they really mean the instrument table.
 
 If someone asks for the aum of a fund it is calculated by the sum of each of the gbpvalue's in the position table for a given portfolioticker.
+Remember that the numbers should be formatted nicely with commas as the thousand seperator.
 
 Question: {input}"""
 
@@ -84,4 +87,5 @@ db_chain = SQLDatabaseChain.from_llm(llm, db, prompt=PROMPT, verbose=True)
 # db_chain = SQLDatabaseChain.from_llm(llm, db, verbose=True, use_query_checker=True)
 # db_chain.run("What is the sum of the gbpvalue's grouped by portfolioticker in the position table?")  # OK BUT WRONG
 # db_chain.run("What is the total aum for each portfolioticker calculated by the sum of each of the gbpvalue's in the position table?")  # GOOD
-db_chain.run("What is the aum for each fund?")
+db_chain.run("What is the aum for each fund?")  # WORKS
+db_chain.run(dict(input="What is the aum for each fund?", table_info=db.get_table_info(), dialect=db.dialect))  # WORKS

@@ -23,7 +23,9 @@ tqdm==4.65.0
 docx2txt==0.8
 sqlalchemy==2.0.15
 # nltk==9.999
-
+safetensors==0.3.1
+# apex helps optimise inference on T5 models
+#apex==  # counldn't install the cryptacular package!!
 # Required for Huggingface training.
 xformers==0.0.20
 transformers==4.30.1
