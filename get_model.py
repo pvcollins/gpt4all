@@ -33,6 +33,7 @@ hf_hub_download(repo_id="google/flan-t5-xl", filename="config.json")
 # snapshot_download(repo_id="google/flan-t5-base")
 # snapshot_download(repo_id="google/flan-t5-small")
 # snapshot_download(repo_id="google/flan-t5-xl")
-snapshot_download(repo_id="chavinlo/alpaca-native")
+# snapshot_download(repo_id="chavinlo/alpaca-native")
+snapshot_download(repo_id="vicgalle/gpt-j-6B-alpaca-gpt4")
 
 print('fin')

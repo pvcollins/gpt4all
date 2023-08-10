@@ -1,7 +1,7 @@
 # created by virtualenv automatically and then by me
+/__pycache__/
 /.dist/
 /.idea/
-/__pycache__/
 /db/
 /directory_on_my_computer/*.*
 /docs_doc/
